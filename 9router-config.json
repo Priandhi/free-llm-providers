@@ -1,0 +1,63 @@
+{
+  "description": "9Router provider configurations for free LLM providers",
+  "version": "1.0.0",
+  "providers": {
+    "openmodel": {
+      "type": "anthropic-compatible",
+      "prefix": "om",
+      "baseUrl": "https://api.openmodel.ai/v1",
+      "defaultModel": "deepseek-v4-flash",
+      "apiType": "chat",
+      "headers": {
+        "anthropic-version": "2023-06-01"
+      }
+    },
+    "opencode-zen": {
+      "type": "openai-compatible",
+      "prefix": "oc",
+      "baseUrl": "https://opencode.ai/zen/v1",
+      "defaultModel": "deepseek-v4-flash-free",
+      "apiType": "chat",
+      "models": [
+        "deepseek-v4-flash-free",
+        "mimo-v2.5-free",
+        "nemotron-3-ultra-free",
+        "north-mini-code-free"
+      ],
+      "notes": "Datacenter IPs get rate-limited. Use Cloudflare Worker relay."
+    },
+    "sambanova": {
+      "type": "openai-compatible",
+      "prefix": "sn",
+      "baseUrl": "https://api.sambanova.ai/v1",
+      "defaultModel": "deepseek-r1-0709",
+      "apiType": "chat",
+      "notes": "Free signup at cloud.sambanova.ai, no credit card needed."
+    },
+    "tokenrouter": {
+      "type": "openai-compatible",
+      "prefix": "tr",
+      "baseUrl": "https://api.tokenrouter.com/v1",
+      "defaultModel": "deepseek/deepseek-v4-flash",
+      "apiType": "chat",
+      "notes": "Model IDs are namespaced (e.g. deepseek/deepseek-v4-flash)."
+    },
+    "pollinations": {
+      "type": "openai-compatible",
+      "prefix": "poll",
+      "baseUrl": "https://text.pollinations.ai/openai",
+      "defaultModel": "openai",
+      "apiType": "chat",
+      "notes": "No auth key required. Models may change without notice."
+    }
+  },
+  "proxyPools": {
+    "opencode-relay": {
+      "type": "cloudflare-worker",
+      "proxies": [
+        "https://opencode-zen-relay.your-username.workers.dev"
+      ],
+      "rotation": "round-robin"
+    }
+  }
+}
